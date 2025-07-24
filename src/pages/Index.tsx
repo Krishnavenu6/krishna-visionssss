@@ -6,10 +6,12 @@ import ProjectsSection from '@/components/ProjectsSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import MagicalCursor from '@/components/MagicalCursor';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <MagicalCursor />
       <Navigation />
       
       <main>
