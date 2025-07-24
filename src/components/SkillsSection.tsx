@@ -139,15 +139,14 @@ const SkillsSection = () => {
                       <span className="text-sm font-medium group-hover/skill:text-primary transition-colors">
                         {skill}
                       </span>
-                      {/* Skill level indicator */}
+                      {/* Skill proficiency stars */}
                       <div className="ml-auto flex space-x-1">
-                        {[...Array(Math.floor(Math.random() * 3) + 3)].map((_, i) => (
+                        {[...Array(Math.floor(Math.random() * 2) + 4)].map((_, i) => (
                           <div 
                             key={i} 
-                            className="w-1 h-4 bg-primary/30 rounded-full group-hover/skill:bg-primary transition-colors"
+                            className="w-2 h-2 bg-primary rounded-full group-hover/skill:animate-pulse-glow transition-all"
                             style={{ 
-                              animationDelay: `${i * 100}ms`,
-                              animation: 'pulse-glow 2s ease-in-out infinite'
+                              animationDelay: `${i * 100}ms`
                             }}
                           ></div>
                         ))}
@@ -159,15 +158,15 @@ const SkillsSection = () => {
                 {/* Category Stats */}
                 <div className="mt-4 pt-4 border-t border-primary/20">
                   <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Expertise Level</span>
+                    <span>Mastery Level</span>
                     <span className="text-primary font-semibold">
-                      {Math.floor(Math.random() * 20) + 80}%
+                      Expert
                     </span>
                   </div>
                   <div className="mt-2 h-1 bg-secondary rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-gradient-nexus animate-pulse"
-                      style={{ width: `${Math.floor(Math.random() * 20) + 80}%` }}
+                      style={{ width: '90%' }}
                     ></div>
                   </div>
                 </div>

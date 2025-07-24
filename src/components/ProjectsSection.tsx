@@ -106,8 +106,8 @@ const ProjectsSection = () => {
                 {/* Project Stats */}
                 <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-secondary/20 rounded-lg border border-primary/20">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-primary">100%</div>
-                    <div className="text-xs text-muted-foreground">Complete</div>
+                    <div className="text-lg font-bold text-primary">Complete</div>
+                    <div className="text-xs text-muted-foreground">Status</div>
                   </div>
                   <div className="text-center">
                     <div className="text-lg font-bold text-primary">Open</div>
@@ -147,7 +147,7 @@ const ProjectsSection = () => {
                 {/* Project Metrics */}
                 <div className="mt-4 pt-4 border-t border-primary/20">
                   <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Project Complexity</span>
+                    <span>Tech Complexity</span>
                     <span className="text-primary font-semibold">Advanced</span>
                   </div>
                   <div className="mt-2 h-1 bg-secondary rounded-full overflow-hidden">

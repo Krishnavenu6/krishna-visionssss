@@ -225,4 +225,58 @@
   .animate-border-scan {
     animation: borderScan 3s linear infinite;
   }
+
+  /* Enhanced Mobile Responsiveness */
+  .container {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Mobile-first improvements */
+  @media (max-width: 768px) {
+    .card-nexus {
+      @apply p-4;
+    }
+    
+    .btn-nexus {
+      @apply px-6 py-3 text-sm;
+    }
+    
+    .section-divider {
+      @apply w-16 h-1;
+    }
+    
+    .text-glow {
+      @apply drop-shadow-lg;
+    }
+
+    /* Hero section mobile adjustments */
+    .hero-title {
+      @apply text-3xl;
+    }
+
+    .hero-subtitle {
+      @apply text-xl;
+    }
+  }
+
+  /* Touch-friendly interactions */
+  @media (hover: none) and (pointer: coarse) {
+    .hover\:scale-105:hover {
+      @apply scale-100;
+    }
+    
+    .group:hover .group-hover\:animate-pulse-glow {
+      @apply animate-pulse-glow;
+    }
+  }
+
+  /* Improved accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .animate-pulse-glow,
+    .animate-border-scan,
+    .animate-spin {
+      animation: none;
+    }
+  }
 }
