@@ -79,7 +79,7 @@ const HeroSection = () => {
 
           {/* Main Title */}
           <h1 className="text-4xl md:text-8xl font-bold mb-6 bg-gradient-nexus bg-clip-text text-transparent animate-cyber-slide">
-            Future Portfolio
+            Portfolio
           </h1>
           <h2 className="text-2xl md:text-5xl font-bold mb-4 text-glow">
             System Online
