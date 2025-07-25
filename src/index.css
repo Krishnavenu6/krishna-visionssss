@@ -249,12 +249,15 @@
     animation: fade-out 1s ease-out forwards;
   }
 
-  /* Global cursor styles - hide on mobile */
-  * {
-    cursor: none !important;
+  /* Global cursor styles - hide default cursor on desktop only */
+  @media (hover: hover) and (pointer: fine) {
+    * {
+      cursor: none !important;
+    }
   }
 
-  @media (max-width: 768px) {
+  /* Keep default cursor on mobile/touch devices */
+  @media (hover: none) and (pointer: coarse) {
     * {
       cursor: auto !important;
     }
