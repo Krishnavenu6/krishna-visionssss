@@ -9,7 +9,6 @@ import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import MagicalCursor from '@/components/MagicalCursor';
 import PortalEntrance from '@/components/PortalEntrance';
-import InteractiveBackground from '@/components/InteractiveBackground';
 
 const Index = () => {
   const [showPortal, setShowPortal] = useState(true);
@@ -23,8 +22,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <InteractiveBackground />
+    <div className="min-h-screen bg-background">
       <MagicalCursor />
       <Navigation />
       

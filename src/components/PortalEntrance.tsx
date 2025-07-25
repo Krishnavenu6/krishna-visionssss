@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 interface PortalEntranceProps {
@@ -6,149 +6,108 @@ interface PortalEntranceProps {
 }
 
 const PortalEntrance = ({ onEnter }: PortalEntranceProps) => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [showButton, setShowButton] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
-
-  const steps = [
-    { text: "Quantum pathways converging", completed: false },
-    { text: "Creative fire ignition systems", completed: false },
-    { text: "Innovation protocols activated", completed: false }
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentStep(prev => {
-        if (prev < steps.length) {
-          if (prev === steps.length - 1) {
-            setTimeout(() => setShowButton(true), 800);
-          }
-          return prev + 1;
-        }
-        clearInterval(timer);
-        return prev;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+  const [isPortalOpen, setIsPortalOpen] = useState(false);
 
   const handleEnter = () => {
-    setIsExiting(true);
+    setIsPortalOpen(true);
     setTimeout(() => {
       onEnter();
     }, 1500);
   };
 
-  // Generate floating particles
-  const particles = Array.from({ length: 50 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    delay: Math.random() * 5
-  }));
-
   return (
-    <div className={`fixed inset-0 z-50 bg-black overflow-hidden transition-all duration-1500 ${
-      isExiting ? 'scale-110 opacity-0' : 'scale-100 opacity-100'
+    <div className={`fixed inset-0 z-50 bg-black flex items-center justify-center transition-all duration-1500 ${
+      isPortalOpen ? 'scale-[20] opacity-0' : 'scale-100 opacity-100'
     }`}>
-      {/* Floating particles */}
-      {particles.map(particle => (
-        <div
-          key={particle.id}
-          className="absolute rounded-full bg-orange-400/60 animate-pulse"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            width: `${particle.size}px`,
-            height: `${particle.size}px`,
-            animationDelay: `${particle.delay}s`,
-            animationDuration: `${2 + Math.random() * 3}s`
-          }}
-        />
-      ))}
-
-      {/* Code snippet on left */}
-      <div className="absolute top-8 left-8 text-cyan-400 font-mono text-sm opacity-60">
-        <div>Global simulation = true;</div>
+      {/* Portal Effect */}
+      <div className={`absolute inset-0 transition-all duration-1500 ${
+        isPortalOpen 
+          ? 'bg-gradient-radial from-primary/50 via-primary/20 to-transparent scale-[5] animate-spin' 
+          : 'bg-gradient-radial from-transparent via-transparent to-black'
+      }`}></div>
+      
+      {/* Matrix rain background */}
+      <div className="absolute inset-0">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-primary/30 text-xs animate-matrix-rain"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${4 + Math.random() * 2}s`
+            }}
+          >
+            {Math.random().toString(36).substring(2, 15)}
+          </div>
+        ))}
       </div>
 
-      {/* Function definition on right */}
-      <div className="absolute top-1/3 right-12 text-cyan-400 font-mono text-sm opacity-40">
-        <div>function awakening() {'{'}</div>
-        <div className="ml-4">return reality;</div>
-        <div>{'}'}</div>
-      </div>
-
-      {/* Central portal */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="text-center">
-          {/* Glowing portal circle */}
-          <div className="relative mb-12">
-            <div className={`w-32 h-32 mx-auto rounded-full transition-all duration-2000 ${
-              isExiting ? 'scale-[20] opacity-100' : 'scale-100 opacity-80'
+      {/* Central Portal */}
+      <div className="relative z-10 text-center">
+        {/* Digital Nexus Logo */}
+        <div className="relative mb-8">
+          <div className="w-40 h-40 mx-auto relative">
+            {/* Outer rotating ring */}
+            <div className="absolute inset-0 rounded-full border-2 border-primary/50 animate-spin" style={{ animationDuration: '8s' }}>
+              <div className="absolute top-0 left-1/2 w-3 h-3 bg-primary rounded-full -translate-x-1/2 -translate-y-1.5"></div>
+            </div>
+            
+            {/* Inner counter-rotating ring */}
+            <div className="absolute inset-6 rounded-full border border-primary/70 animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }}>
+              <div className="absolute top-0 left-1/2 w-2 h-2 bg-primary-glow rounded-full -translate-x-1/2 -translate-y-1"></div>
+            </div>
+            
+            {/* Core Portal */}
+            <div className={`absolute inset-12 rounded-full border-2 border-primary flex items-center justify-center transition-all duration-1000 ${
+              isPortalOpen 
+                ? 'bg-primary shadow-[0_0_100px_theme(colors.primary)] scale-110' 
+                : 'bg-gradient-cyber shadow-intense'
             }`}>
-              {/* Multiple glow layers */}
-              <div className="absolute inset-0 rounded-full bg-gradient-radial from-orange-500/80 via-red-500/40 to-transparent animate-pulse" />
-              <div className="absolute inset-2 rounded-full bg-gradient-radial from-orange-400/90 via-red-400/30 to-transparent" />
-              <div className="absolute inset-4 rounded-full bg-gradient-radial from-orange-300 via-orange-500/50 to-transparent animate-pulse" 
-                   style={{ animationDuration: '2s' }} />
-              <div className="absolute inset-6 rounded-full bg-orange-400 shadow-[0_0_50px_orange]" />
+              <div className="text-2xl font-bold text-white animate-pulse-glow">
+                DN
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Main title */}
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-b from-orange-400 to-red-500 bg-clip-text text-transparent">
-            Digital Nexus
-          </h1>
-          <h2 className="text-4xl font-bold mb-8 bg-gradient-to-b from-orange-400 to-red-500 bg-clip-text text-transparent">
-            Awakening
-          </h2>
+        {/* Digital Nexus Title */}
+        <h1 className="text-6xl font-bold mb-6 bg-gradient-nexus bg-clip-text text-transparent animate-cyber-slide">
+          Digital Nexus
+        </h1>
+        
+        <p className="text-xl text-primary/80 mb-8 font-mono">
+          Quantum Gateway Initializing...
+        </p>
 
-          {/* Initializing text */}
-          <div className="text-cyan-400 font-mono mb-8 text-lg">
-            Initializing Neural Interface...
-          </div>
+        {/* Enter Portal Button */}
+        <Button 
+          onClick={handleEnter}
+          className="btn-nexus text-lg px-12 py-6 animate-float"
+          disabled={isPortalOpen}
+        >
+          {isPortalOpen ? 'Opening Portal...' : 'Enter the Digital Realm'}
+        </Button>
 
-          {/* Progress steps */}
-          <div className="space-y-3 mb-8 text-left max-w-md mx-auto">
-            {steps.map((step, index) => (
+        {/* Portal rings when opening */}
+        {isPortalOpen && (
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(5)].map((_, i) => (
               <div
-                key={index}
-                className={`flex items-center transition-all duration-500 ${
-                  index < currentStep ? 'opacity-100 text-orange-300' : 
-                  index === currentStep ? 'opacity-100 text-yellow-300' : 
-                  'opacity-30 text-gray-500'
-                }`}
-              >
-                <span className="text-orange-400 mr-3">
-                  {index < currentStep ? '✓' : '▶'}
-                </span>
-                <span className="font-mono">{step.text}</span>
-              </div>
+                key={i}
+                className="absolute top-1/2 left-1/2 border border-primary/30 rounded-full animate-ping"
+                style={{
+                  width: `${(i + 1) * 100}px`,
+                  height: `${(i + 1) * 100}px`,
+                  marginLeft: `-${(i + 1) * 50}px`,
+                  marginTop: `-${(i + 1) * 50}px`,
+                  animationDelay: `${i * 0.3}s`,
+                  animationDuration: '1.5s'
+                }}
+              />
             ))}
           </div>
-
-          {/* Ready text */}
-          {currentStep >= steps.length && (
-            <div className="text-orange-300 font-mono mb-8 animate-fade-in">
-              Ready to enter...
-            </div>
-          )}
-
-          {/* Enter button */}
-          {showButton && (
-            <div className="animate-fade-in">
-              <Button
-                onClick={handleEnter}
-                className="bg-transparent border-2 border-orange-500 text-orange-300 hover:bg-orange-500/20 hover:text-orange-200 px-8 py-3 text-lg font-mono rounded-full transition-all duration-300 hover:shadow-[0_0_30px_orange] hover:scale-105"
-              >
-                Enter the Digital Realm
-              </Button>
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
