@@ -44,24 +44,61 @@ const PortalEntrance = ({ onEnter }: PortalEntranceProps) => {
       <div className={`fixed inset-0 z-50 bg-background transition-all duration-1000 ${
         isExiting ? 'opacity-0 scale-110' : 'opacity-100'
       }`}>
-      {/* Animated Background Grid with Sun Glow */}
-      <div className="absolute inset-0 opacity-20">
+      {/* Enhanced Background with Multiple Sun Glows */}
+      <div className="absolute inset-0">
+        {/* Primary Sun Glow */}
         <div className="absolute inset-0" style={{
-          backgroundImage: `
-            radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.15) 0%, transparent 70%),
-            linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px)
+          background: `
+            radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.25) 0%, hsl(var(--primary) / 0.1) 30%, transparent 70%),
+            radial-gradient(circle at 30% 30%, hsl(var(--primary-glow) / 0.15) 0%, transparent 60%),
+            radial-gradient(circle at 70% 70%, hsl(var(--primary) / 0.1) 0%, transparent 50%)
           `,
-          backgroundSize: '200% 200%, 50px 50px, 50px 50px',
-          animation: 'float 8s ease-in-out infinite, pulse-glow 4s ease-in-out infinite'
+          animation: 'pulse-glow 6s ease-in-out infinite'
         }} />
+        
+        {/* Animated Grid */}
+        <div className="absolute inset-0 opacity-30" style={{
+          backgroundImage: `
+            linear-gradient(hsl(var(--primary) / 0.15) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.15) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+          animation: 'float 12s ease-in-out infinite'
+        }} />
+        
+        {/* Scanning Lines */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-border-scan"></div>
+          <div className="absolute w-0.5 h-full bg-gradient-to-b from-transparent via-primary-glow to-transparent animate-border-scan" 
+               style={{ animationDelay: '2s', left: '30%' }}></div>
+          <div className="absolute w-0.5 h-full bg-gradient-to-b from-transparent via-primary to-transparent animate-border-scan" 
+               style={{ animationDelay: '4s', left: '70%' }}></div>
+        </div>
       </div>
 
-      {/* Enhanced 3D Moving Elements */}
+      {/* Enhanced 3D Moving Elements with More Variety */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(25)].map((_, i) => (
+        {/* Floating Energy Orbs */}
+        {[...Array(12)].map((_, i) => (
           <div
-            key={i}
+            key={`orb-${i}`}
+            className="absolute animate-float opacity-50"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${4 + Math.random() * 6}s`,
+            }}
+          >
+            <div className="w-3 h-3 bg-gradient-radial from-primary via-primary-glow to-transparent rounded-full animate-pulse-glow shadow-[var(--shadow-intense)]" 
+                 style={{ animationDelay: `${Math.random() * 3}s` }} />
+          </div>
+        ))}
+        
+        {/* Geometric Shapes */}
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={`geo-${i}`}
             className="absolute animate-float opacity-40"
             style={{
               left: `${Math.random() * 100}%`,
@@ -72,24 +109,44 @@ const PortalEntrance = ({ onEnter }: PortalEntranceProps) => {
             }}
           >
             {i % 5 === 0 && (
-              <div className="w-3 h-3 bg-primary/50 rotate-45 animate-spin shadow-[var(--shadow-nexus)]" 
-                   style={{ animationDuration: '6s' }} />
+              <div className="w-4 h-4 bg-primary/40 rotate-45 animate-spin border border-primary/60 shadow-[var(--shadow-nexus)]" 
+                   style={{ animationDuration: '8s' }} />
             )}
             {i % 5 === 1 && (
-              <div className="w-2 h-2 bg-primary-glow rounded-full animate-pulse-glow shadow-[var(--shadow-cyber)]" />
+              <div className="w-2 h-6 bg-gradient-to-b from-primary via-primary-glow to-transparent animate-pulse" />
             )}
             {i % 5 === 2 && (
-              <div className="w-4 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-pulse" />
+              <div className="w-6 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-pulse" />
             )}
             {i % 5 === 3 && (
-              <div className="w-1 h-4 bg-gradient-to-b from-transparent via-primary-glow to-transparent animate-float" />
-            )}
-            {i % 5 === 4 && (
-              <div className="w-2 h-2 border border-primary/60 rounded-full animate-spin"
-                   style={{ animationDuration: '8s' }}>
-                <div className="w-0.5 h-0.5 bg-primary rounded-full m-auto mt-0.5"></div>
+              <div className="w-3 h-3 border-2 border-primary/50 rounded-full animate-spin relative"
+                   style={{ animationDuration: '10s' }}>
+                <div className="absolute top-0 left-1/2 w-1 h-1 bg-primary-glow rounded-full -translate-x-1/2 -translate-y-0.5"></div>
               </div>
             )}
+            {i % 5 === 4 && (
+              <div className="w-2 h-2 bg-primary/60 animate-pulse-glow shadow-lg" 
+                   style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }} />
+            )}
+          </div>
+        ))}
+        
+        {/* Energy Streams */}
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={`stream-${i}`}
+            className="absolute opacity-30"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${50 + Math.random() * 100}px`,
+              height: '1px',
+              transform: `rotate(${Math.random() * 180}deg)`,
+              animation: `float ${5 + Math.random() * 3}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 4}s`
+            }}
+          >
+            <div className="w-full h-full bg-gradient-to-r from-transparent via-primary to-transparent animate-pulse"></div>
           </div>
         ))}
       </div>
@@ -97,31 +154,58 @@ const PortalEntrance = ({ onEnter }: PortalEntranceProps) => {
       {/* Central Portal */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative">
-          {/* Enhanced Sun Glow Effect */}
-          <div className="absolute inset-0 w-96 h-96 rounded-full bg-gradient-radial from-primary/40 via-primary/20 to-transparent animate-pulse-glow" 
-               style={{ filter: 'blur(30px)' }} />
-          <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-radial from-primary-glow/30 via-primary/15 to-transparent animate-pulse-glow" 
-               style={{ filter: 'blur(15px)', animationDelay: '1s' }} />
+          {/* Enhanced Sun Glow Effects with Multiple Layers */}
+          <div className="absolute inset-0 w-[500px] h-[500px] rounded-full bg-gradient-radial from-primary/50 via-primary/25 to-transparent animate-pulse-glow" 
+               style={{ filter: 'blur(40px)' }} />
+          <div className="absolute inset-0 w-96 h-96 rounded-full bg-gradient-radial from-primary-glow/40 via-primary/20 to-transparent animate-pulse-glow" 
+               style={{ filter: 'blur(25px)', animationDelay: '1.5s' }} />
+          <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-radial from-primary/60 via-primary-glow/30 to-transparent animate-pulse-glow" 
+               style={{ filter: 'blur(15px)', animationDelay: '3s' }} />
+          <div className="absolute inset-0 w-32 h-32 rounded-full bg-gradient-radial from-primary-glow/70 to-transparent animate-pulse-glow" 
+               style={{ filter: 'blur(8px)', animationDelay: '0.5s' }} />
           
-          {/* Portal Rings */}
+          {/* Enhanced Portal Rings with More Dynamic Animation */}
           <div className="relative w-32 h-32">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(6)].map((_, i) => (
               <div
                 key={i}
                 className="absolute inset-0 rounded-full border border-primary/60"
                 style={{
-                  width: `${8 + i * 2}rem`,
-                  height: `${8 + i * 2}rem`,
+                  width: `${6 + i * 2.5}rem`,
+                  height: `${6 + i * 2.5}rem`,
                   left: '50%',
                   top: '50%',
                   transform: 'translate(-50%, -50%)',
-                  animation: `spin ${8 + i * 2}s linear infinite ${i % 2 === 0 ? '' : 'reverse'}`
+                  animation: `spin ${6 + i * 3}s linear infinite ${i % 2 === 0 ? '' : 'reverse'}`,
+                  borderColor: i % 2 === 0 ? 'hsl(var(--primary) / 0.6)' : 'hsl(var(--primary-glow) / 0.4)'
                 }}
               />
             ))}
             
-            {/* Central Core */}
-            <div className="absolute inset-0 w-16 h-16 m-auto rounded-full bg-gradient-radial from-primary via-primary-glow to-primary/80 animate-pulse-glow shadow-[var(--shadow-intense)]" />
+            {/* Pulsing Energy Rings */}
+            {[...Array(3)].map((_, i) => (
+              <div
+                key={`pulse-${i}`}
+                className="absolute inset-0 rounded-full border-2 border-primary/30 animate-pulse-glow"
+                style={{
+                  width: `${12 + i * 4}rem`,
+                  height: `${12 + i * 4}rem`,
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  animationDelay: `${i * 1.5}s`,
+                  animationDuration: '3s'
+                }}
+              />
+            ))}
+            
+            {/* Enhanced Central Core */}
+            <div className="absolute inset-0 w-20 h-20 m-auto rounded-full bg-gradient-radial from-primary via-primary-glow to-primary/80 animate-pulse-glow shadow-[var(--shadow-intense)]">
+              <div className="absolute inset-2 rounded-full bg-gradient-radial from-primary-glow/80 to-transparent animate-spin" 
+                   style={{ animationDuration: '4s' }}>
+                <div className="absolute top-0 left-1/2 w-1 h-1 bg-primary-glow rounded-full -translate-x-1/2"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
