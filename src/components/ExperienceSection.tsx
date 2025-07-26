@@ -26,7 +26,7 @@ const ExperienceSection = () => {
     ]
   };
 
-  const resumeUrl = 'https://drive.google.com/file/d/16iYIzI7_-rkIa2BcOWT2IEl_os_i5F5Y/view?usp=sharing';
+  const resumeUrl = 'https://drive.google.com/file/d/1yhVaY63CtF0otl_996aSDuoy4HKQfKM8/view?usp=sharing';
 
   return (
     <section id="experience" className="py-20 relative">
