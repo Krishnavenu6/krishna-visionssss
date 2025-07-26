@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import MagicalCursor from './MagicalCursor';
 
 interface PortalEntranceProps {
   onEnter: () => void;
@@ -38,43 +39,56 @@ const PortalEntrance = ({ onEnter }: PortalEntranceProps) => {
   };
 
   return (
-    <div className={`fixed inset-0 z-50 bg-background transition-all duration-1000 ${
-      isExiting ? 'opacity-0 scale-110' : 'opacity-100'
-    }`}>
-      {/* Animated Background Grid */}
+    <>
+      <MagicalCursor />
+      <div className={`fixed inset-0 z-50 bg-background transition-all duration-1000 ${
+        isExiting ? 'opacity-0 scale-110' : 'opacity-100'
+      }`}>
+      {/* Animated Background Grid with Sun Glow */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0" style={{
           backgroundImage: `
+            radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.15) 0%, transparent 70%),
             linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
             linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px',
-          animation: 'float 8s ease-in-out infinite'
+          backgroundSize: '200% 200%, 50px 50px, 50px 50px',
+          animation: 'float 8s ease-in-out infinite, pulse-glow 4s ease-in-out infinite'
         }} />
       </div>
 
-      {/* Floating 3D Elements */}
+      {/* Enhanced 3D Moving Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(25)].map((_, i) => (
           <div
             key={i}
-            className="absolute animate-float opacity-30"
+            className="absolute animate-float opacity-40"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${3 + Math.random() * 2}s`
+              animationDelay: `${Math.random() * 6}s`,
+              animationDuration: `${3 + Math.random() * 4}s`,
+              transform: `rotate(${Math.random() * 360}deg)`
             }}
           >
-            {i % 3 === 0 && (
-              <div className="w-2 h-2 bg-primary/40 rotate-45 animate-spin" 
-                   style={{ animationDuration: '4s' }} />
+            {i % 5 === 0 && (
+              <div className="w-3 h-3 bg-primary/50 rotate-45 animate-spin shadow-[var(--shadow-nexus)]" 
+                   style={{ animationDuration: '6s' }} />
             )}
-            {i % 3 === 1 && (
-              <div className="w-1 h-1 bg-primary-glow rounded-full animate-pulse" />
+            {i % 5 === 1 && (
+              <div className="w-2 h-2 bg-primary-glow rounded-full animate-pulse-glow shadow-[var(--shadow-cyber)]" />
             )}
-            {i % 3 === 2 && (
-              <div className="w-3 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
+            {i % 5 === 2 && (
+              <div className="w-4 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-pulse" />
+            )}
+            {i % 5 === 3 && (
+              <div className="w-1 h-4 bg-gradient-to-b from-transparent via-primary-glow to-transparent animate-float" />
+            )}
+            {i % 5 === 4 && (
+              <div className="w-2 h-2 border border-primary/60 rounded-full animate-spin"
+                   style={{ animationDuration: '8s' }}>
+                <div className="w-0.5 h-0.5 bg-primary rounded-full m-auto mt-0.5"></div>
+              </div>
             )}
           </div>
         ))}
@@ -83,9 +97,11 @@ const PortalEntrance = ({ onEnter }: PortalEntranceProps) => {
       {/* Central Portal */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative">
-          {/* Sun Glow Effect */}
-          <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-radial from-primary/30 via-primary/10 to-transparent animate-pulse-glow" 
-               style={{ filter: 'blur(20px)' }} />
+          {/* Enhanced Sun Glow Effect */}
+          <div className="absolute inset-0 w-96 h-96 rounded-full bg-gradient-radial from-primary/40 via-primary/20 to-transparent animate-pulse-glow" 
+               style={{ filter: 'blur(30px)' }} />
+          <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-radial from-primary-glow/30 via-primary/15 to-transparent animate-pulse-glow" 
+               style={{ filter: 'blur(15px)', animationDelay: '1s' }} />
           
           {/* Portal Rings */}
           <div className="relative w-32 h-32">
@@ -178,7 +194,8 @@ const PortalEntrance = ({ onEnter }: PortalEntranceProps) => {
       <div className="absolute bottom-4 right-4 text-xs font-mono text-primary/60">
         Version 2.0.45 | {new Date().getFullYear()}
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
