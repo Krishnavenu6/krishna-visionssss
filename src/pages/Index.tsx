@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
@@ -7,14 +8,27 @@ import ExperienceSection from '@/components/ExperienceSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import MagicalCursor from '@/components/MagicalCursor';
+import PortalEntrance from '@/components/PortalEntrance';
+import InteractiveBackground from '@/components/InteractiveBackground';
 
 const Index = () => {
+  const [showPortfolio, setShowPortfolio] = useState(false);
+
+  const handleEnterPortfolio = () => {
+    setShowPortfolio(true);
+  };
+
+  if (!showPortfolio) {
+    return <PortalEntrance onEnter={handleEnterPortfolio} />;
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <InteractiveBackground />
       <MagicalCursor />
       <Navigation />
       
-      <main>
+      <main className="relative z-10">
         <HeroSection />
         <AboutSection />
         <SkillsSection />
