@@ -10,7 +10,7 @@ const ProjectsSection = () => {
       title: 'Profile Management System',
       description: 'A comprehensive user profile management system built with Spring Boot and React, featuring secure authentication and data management capabilities.',
       technologies: ['Spring Boot', 'React', 'MySQL', 'REST API'],
-      githubUrl: 'https://github.com/Krishnavenu6/Profile_management_System_Sprin_React',
+      githubUrl: 'https://github.com/Krishnavenu06/Profile_management_System_Sprin_React',
       icon: <Database className="w-8 h-8" />,
       gradient: 'from-blue-500 to-purple-600'
     },
@@ -19,7 +19,7 @@ const ProjectsSection = () => {
       title: 'Online Exam Portal',
       description: 'A secure online examination platform with real-time monitoring, automated grading, and comprehensive reporting features.',
       technologies: ['Java', 'Spring Framework', 'MySQL', 'JavaScript'],
-      githubUrl: 'https://github.com/Krishnavenu6/OnlineExamPortal',
+      githubUrl: 'https://github.com/Krishnavenu06/OnlineExamPortal',
       icon: <Shield className="w-8 h-8" />,
       gradient: 'from-green-500 to-teal-600'
     },
@@ -28,7 +28,7 @@ const ProjectsSection = () => {
       title: 'Cat Light Switcher Web App',
       description: 'An interactive web application featuring playful animations and dynamic lighting effects with cat-themed UI elements.',
       technologies: ['HTML', 'CSS', 'JavaScript', 'Animations'],
-      githubUrl: 'https://github.com/Krishnavenu6/Light-Switcher-Web-App',
+      githubUrl: 'https://github.com/Krishnavenu06/Light-Switcher-Web-App',
       icon: <Lightbulb className="w-8 h-8" />,
       gradient: 'from-yellow-500 to-orange-600'
     },
@@ -37,7 +37,7 @@ const ProjectsSection = () => {
       title: 'Bestselling Chairs Showcase',
       description: 'An elegant e-commerce interface showcasing premium furniture with modern design patterns and responsive layouts.',
       technologies: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
-      githubUrl: 'https://github.com/Krishnavenu6/Explore-Our-Bestselling-Chairs-for-Comfort-and-Style',
+      githubUrl: 'https://github.com/Krishnavenu06/Explore-Our-Bestselling-Chairs-for-Comfort-and-Style-main',
       icon: <ShoppingCart className="w-8 h-8" />,
       gradient: 'from-pink-500 to-rose-600'
     }
@@ -174,7 +174,7 @@ const ProjectsSection = () => {
               </p>
               <Button asChild className="btn-nexus">
                 <a 
-                  href="https://github.com/Krishnavenu6" 
+                  href="https://github.com/Krishnavenu06" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2"
