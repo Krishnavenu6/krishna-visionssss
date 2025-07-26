@@ -75,7 +75,7 @@ const ContactSection = () => {
       icon: <Github className="w-6 h-6" />,
       label: 'GitHub',
       value: 'View my repositories',
-      href: 'https://github.com/Krishnavenu6',
+      href: 'https://github.com/Krishnavenu06',
       color: 'text-white'
     },
     {
