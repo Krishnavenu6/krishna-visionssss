@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   Mail, 
   Send, 
@@ -40,18 +41,19 @@ const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://fmlcionvyuuysmzlcjek.supabase.co/functions/v1/send-contact-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtbGNpb252eXV1eXNtemxjamVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1NzU4NzEsImV4cCI6MjA3MDE1MTg3MX0.LG-hqa5DvkTpAeZSgCbANhAjpJvUOlr5pIlc2-G8SmI'}`,
-        },
-        body: JSON.stringify(formData),
+      console.log('Submitting form data:', formData);
+      
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData,
       });
 
-      const result = await response.json();
+      console.log('Supabase response:', { data, error });
 
-      if (result.success) {
+      if (error) {
+        throw error;
+      }
+
+      if (data?.success) {
         toast({
           title: "Message Sent Successfully!",
           description: "Thank you for reaching out. I'll get back to you soon.",
@@ -64,7 +66,7 @@ const ContactSection = () => {
           message: ''
         });
       } else {
-        throw new Error(result.error || 'Failed to send message');
+        throw new Error(data?.error || 'Failed to send message');
       }
     } catch (error) {
       console.error('Error sending message:', error);
