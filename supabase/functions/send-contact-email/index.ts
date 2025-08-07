@@ -82,7 +82,7 @@ serve(async (req) => {
     }
 
     const emailData = {
-      from: 'Portfolio Contact <noreply@yourdomain.com>', // You'll need to configure this with your domain
+      from: 'Portfolio Contact <onboarding@resend.dev>', // Using Resend's default verified domain
       to: ['krishnavenu256@gmail.com'],
       subject: `Portfolio Contact: ${subject}`,
       html: `
