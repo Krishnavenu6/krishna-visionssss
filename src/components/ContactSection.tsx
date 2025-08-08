@@ -48,12 +48,15 @@ const ContactSection = () => {
       });
 
       console.log('Supabase response:', { data, error });
+      console.log('Data content:', data);
+      console.log('Error details:', error);
 
       if (error) {
-        throw error;
+        console.error('Supabase function error:', error);
+        throw new Error(`Function error: ${error.message || JSON.stringify(error)}`);
       }
 
-      if (data?.success) {
+      if (data && data.success) {
         toast({
           title: "Message Sent Successfully!",
           description: "Thank you for reaching out. I'll get back to you soon.",
@@ -66,13 +69,18 @@ const ContactSection = () => {
           message: ''
         });
       } else {
-        throw new Error(data?.error || 'Failed to send message');
+        const errorMessage = data?.error || data?.message || 'Unknown error occurred';
+        console.error('Function returned error:', errorMessage);
+        throw new Error(errorMessage);
       }
-    } catch (error) {
-      console.error('Error sending message:', error);
+    } catch (error: any) {
+      console.error('Complete error details:', error);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+      
       toast({
         title: "Failed to Send Message",
-        description: "There was an error sending your message. Please try again or contact me directly.",
+        description: `Error: ${error.message || 'Unknown error'}. Please contact me directly at krishnavenu256@gmail.com`,
         variant: "destructive",
       });
     } finally {
