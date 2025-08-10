@@ -172,24 +172,27 @@ serve(async (req) => {
       JSON.stringify({ 
         success: true, 
         message: 'Email sent successfully',
-        emailId: result.id 
+        emailId: result.id,
+        status: 200
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       },
     )
 
   } catch (error) {
     console.error('Unexpected error:', error)
+    console.error('Error stack:', error.stack)
     return new Response(
       JSON.stringify({ 
         success: false, 
-        error: 'Internal server error' 
+        error: 'Internal server error',
+        details: error.message
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       },
     )
   }
