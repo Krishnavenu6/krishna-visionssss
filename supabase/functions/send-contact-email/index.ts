@@ -19,14 +19,7 @@ serve(async (req) => {
   }
 
   try {
-    console.log('Received request method:', req.method)
-    console.log('Request headers:', Object.fromEntries(req.headers.entries()))
-    
-    const body = await req.text()
-    console.log('Raw request body:', body)
-    
-    const { fullName, email, subject, message }: ContactFormData = JSON.parse(body)
-    console.log('Parsed form data:', { fullName, email, subject, message })
+    const { fullName, email, subject, message }: ContactFormData = await req.json()
 
     // Create PDF content as HTML (you can enhance this with a proper PDF library)
     const pdfContent = `
