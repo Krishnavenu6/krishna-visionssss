@@ -117,10 +117,12 @@ serve(async (req) => {
     const emailData = {
       from: 'Portfolio Contact <noreply@resend.dev>',
       to: ['krishnavenu256@gmail.com'],
-      reply_to: email, // This allows replying to the sender
+      reply_to: [email], // Resend API expects an array
       subject: `Portfolio Contact: ${subject}`,
       html: emailHtml
     }
+
+    console.log('Email data to send:', JSON.stringify(emailData, null, 2));
 
     console.log('Making request to Resend API...')
     
@@ -137,11 +139,24 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text()
-      console.error('Resend API error:', errorText)
+      console.error('Resend API error status:', response.status)
+      console.error('Resend API error response:', errorText)
+      
+      let errorMessage = `Email service error: ${response.status}`
+      try {
+        const errorData = JSON.parse(errorText)
+        if (errorData.message) {
+          errorMessage = errorData.message
+        }
+      } catch (e) {
+        // Keep default error message
+      }
+
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: `Email service error: ${response.status}` 
+          error: errorMessage,
+          details: errorText 
         }),
         {
           status: 500,
