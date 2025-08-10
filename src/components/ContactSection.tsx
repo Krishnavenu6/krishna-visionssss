@@ -22,13 +22,11 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    phone: '',
     subject: '',
     message: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSendingSMS, setIsSendingSMS] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -88,7 +86,6 @@ const ContactSection = () => {
         setFormData({
           fullName: '',
           email: '',
-          phone: '',
           subject: '',
           message: ''
         });
@@ -112,60 +109,6 @@ const ContactSection = () => {
       });
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleSendSMS = async () => {
-    if (!formData.phone.trim() || !formData.message.trim()) {
-      toast({
-        title: "Missing Information",
-        description: "Please enter a phone number and message to send SMS.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Phone validation (basic)
-    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
-    if (!phoneRegex.test(formData.phone)) {
-      toast({
-        title: "Invalid Phone Number",
-        description: "Please enter a valid phone number with country code (e.g., +1234567890).",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsSendingSMS(true);
-
-    try {
-      const { data, error } = await supabase.functions.invoke('send-sms', {
-        body: {
-          phone: formData.phone,
-          message: `From: ${formData.fullName}\nEmail: ${formData.email}\n\n${formData.message}`
-        },
-      });
-
-      if (error) {
-        throw new Error(`Unable to send SMS: ${error.message}`);
-      }
-
-      if (data?.success) {
-        toast({
-          title: "SMS Sent Successfully!",
-          description: "Your message has been sent via SMS.",
-        });
-      } else {
-        throw new Error(data?.error || 'Failed to send SMS');
-      }
-    } catch (error: any) {
-      toast({
-        title: "Failed to Send SMS",
-        description: error.message || "Unable to send SMS at the moment.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSendingSMS(false);
     }
   };
 
@@ -261,22 +204,6 @@ const ContactSection = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="phone" className="flex items-center space-x-2 text-primary mb-2">
-                    <Phone className="w-4 h-4" />
-                    <span>Phone Number (for SMS)</span>
-                  </Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="bg-secondary/50 border-primary/30 focus:border-primary transition-all"
-                    placeholder="+1234567890 (optional for SMS)"
-                  />
-                </div>
-
-                <div>
                   <Label htmlFor="subject" className="flex items-center space-x-2 text-primary mb-2">
                     <MessageSquare className="w-4 h-4" />
                     <span>Subject</span>
@@ -309,45 +236,23 @@ const ContactSection = () => {
                   />
                 </div>
 
-                <div className="flex space-x-3">
-                  <Button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className="btn-nexus flex-1"
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center space-x-2">
-                        <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin"></div>
-                        <span>Sending Email...</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-center space-x-2">
-                        <Mail className="w-5 h-5" />
-                        <span>Send Email</span>
-                      </div>
-                    )}
-                  </Button>
-
-                  <Button 
-                    type="button" 
-                    onClick={handleSendSMS}
-                    disabled={isSendingSMS || !formData.phone.trim()}
-                    className="btn-nexus flex-1"
-                    variant="outline"
-                  >
-                    {isSendingSMS ? (
-                      <div className="flex items-center space-x-2">
-                        <div className="w-4 h-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
-                        <span>Sending SMS...</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-center space-x-2">
-                        <Phone className="w-5 h-5" />
-                        <span>Send SMS</span>
-                      </div>
-                    )}
-                  </Button>
-                </div>
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="btn-nexus w-full"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin"></div>
+                      <span>Sending...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center space-x-2">
+                      <Send className="w-5 h-5" />
+                      <span>Send Message</span>
+                    </div>
+                  )}
+                </Button>
               </form>
             </div>
           </Card>
