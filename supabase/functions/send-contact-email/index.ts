@@ -115,9 +115,8 @@ serve(async (req) => {
 
     // Send email using Resend
     const emailData = {
-      from: 'Portfolio Contact <noreply@resend.dev>',
+      from: 'Portfolio Contact <onboarding@resend.dev>',
       to: ['krishnavenu256@gmail.com'],
-      reply_to: email, // This allows replying to the sender
       subject: `Portfolio Contact: ${subject}`,
       html: emailHtml
     }
